@@ -4,7 +4,7 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
-      'axios'
+      'boot'
     ],
     css: [
       'app.styl'
@@ -67,8 +67,7 @@ module.exports = function (ctx) {
       // i18n: 'de' // Quasar language
     },
     // animations: 'all' --- includes all animations
-    animations: [
-    ],
+    animations: [],
     pwa: {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {},
