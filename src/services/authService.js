@@ -2,7 +2,7 @@ import AuthenticationContext from 'adal-angular/lib/adal.js'
 
 const config = {
   tenant: 'your aad tenant',
-  clientId: 'your aad application client id',
+  clientId: 'ae75800b-9d7d-4835-955f-f4d439ffcaea',
   redirectUri: 'base uri for this application',
   cacheLocation: 'localStorage'
 }
@@ -37,7 +37,7 @@ export default {
    */
   acquireToken () {
     return new Promise((resolve, reject) => {
-      this.authenticationContext.acquireToken('<azure active directory resource id>', (error, token) => {
+      this.authenticationContext.acquireToken('https://graph.microsoft.com', (error, token) => {
         if (error || !token) {
           return reject(error)
         } else {

@@ -8,14 +8,15 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
-    "dev": "quasar dev",
+    "dev": "quasar dev -m electron",
     "build": "quasar build",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
     "adal-angular": "^1.0.17",
     "axios": "^0.18.0",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "qs": "^6.5.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

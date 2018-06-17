@@ -1,4 +1,4 @@
-import message from './mail/message'
+import message from './message'
 
 export default {
   message
