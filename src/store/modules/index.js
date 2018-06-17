@@ -37,7 +37,7 @@ requireModule.keys().forEach(fileName => {
   modules[modulePath.pop()] = {
     // Modules are namespaced by default
     namespaced: true,
-    ...requireModule(fileName),
+    ...requireModule(fileName)
   }
 
   // Recursively get the namespace of the module, even if nested
