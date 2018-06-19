@@ -48,10 +48,13 @@
 
 <script>
 
-import { mailComputed } from '../store/helper'
+import { mailComputed, mailMethods } from '../store/helper'
 
 export default {
   name: 'LayoutDefault',
+  created () {
+    this.fetchFolders()
+  },
   data () {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop
@@ -59,6 +62,9 @@ export default {
   },
   computed: {
     ...mailComputed
+  },
+  methods: {
+    ...mailMethods
   }
 }
 </script>

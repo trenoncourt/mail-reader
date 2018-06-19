@@ -15,6 +15,9 @@ export const mutations = {
   },
   SET_FOLDERS (state, newValue) {
     state.folders = newValue
+  },
+  SET_CURRENT_MAIL_BODY (state, newValue) {
+    state.currentMailBody = newValue
   }
 }
 
@@ -60,7 +63,7 @@ export const actions = {
   fetchMailBody ({commit}, mailId) {
     return Vue.$http.graph.mail.message.findById(state.currentEmail, mailId)
       .then(response => {
-        commit('SET_MAILS', response.data.value)
+        commit('SET_CURRENT_MAIL_BODY', response.data.value)
         return response.data.value
       })
   }
