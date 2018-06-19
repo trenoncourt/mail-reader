@@ -1,14 +1,22 @@
 <template>
-  <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+  <q-page class="flex">
+    <div class="row">
+      <div class="col-4">
+        <mail-list></mail-list>
+      </div>
+    </div>
   </q-page>
 </template>
 
-<style>
-</style>
-
 <script>
+import MailList from '../components/MailList'
+import { mailMethods } from '../store/helper'
+
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  components: {MailList},
+  methods: {
+    ...mailMethods
+  }
 }
 </script>

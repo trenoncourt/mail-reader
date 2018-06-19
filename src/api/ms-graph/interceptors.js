@@ -1,10 +1,9 @@
-import store from 'src/store/index'
-import {UPDATE_TOKEN} from '../../store/types'
+import store from '../../store/index'
 
 export default (http) => {
-  // https://github.com/mzabriskie/axios#interceptors
   http.interceptors.request.use(async config => {
-    config.headers.common.Authorization = `Bearer ${store.state.appToken}`
+    console.log(store.state.auth.token)
+    config.headers.common.Authorization = `Bearer ${store.state.auth.token}`
     return config
   })
 
@@ -15,8 +14,8 @@ export default (http) => {
       if (!response) {
         return Promise.reject(error)
       }
-      if ([403].indexOf(response.status) > -1) {
-        return store.dispatch(UPDATE_TOKEN)
+      if ([401].indexOf(response.status) > -1) {
+        return store.dispatch('auth/logIn')
       }
       console.error(response)
       return Promise.reject(error)

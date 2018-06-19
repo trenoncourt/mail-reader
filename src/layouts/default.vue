@@ -32,26 +32,10 @@
         link
         inset-delimiter
       >
-        <q-list-header>Essential Links</q-list-header>
-        <q-item @click.native="openURL('http://quasar-framework.org')">
-          <q-item-side icon="school"/>
-          <q-item-main label="Docs" sublabel="quasar-framework.org"/>
-        </q-item>
-        <q-item @click.native="openURL('https://github.com/quasarframework/')">
-          <q-item-side icon="code"/>
-          <q-item-main label="GitHub" sublabel="github.com/quasarframework"/>
-        </q-item>
-        <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
-          <q-item-side icon="chat"/>
-          <q-item-main label="Discord Chat Channel" sublabel="https://discord.gg/5TDhbDg"/>
-        </q-item>
-        <q-item @click.native="openURL('http://forum.quasar-framework.org')">
-          <q-item-side icon="record_voice_over"/>
-          <q-item-main label="Forum" sublabel="forum.quasar-framework.org"/>
-        </q-item>
-        <q-item @click.native="openURL('https://twitter.com/quasarframework')">
-          <q-item-side icon="rss feed"/>
-          <q-item-main label="Twitter" sublabel="@quasarframework"/>
+        <q-list-header>Folders</q-list-header>
+        <q-item v-for="(folder, key) in folders" :key="key" @click.native="fetchFolderMails(folder.id)">
+          <q-item-side>{{folder.totalItemCount}}</q-item-side>
+          <q-item-main :label="folder.displayName" :sublabel="'sub folders: ' + folder.childFolderCount"/>
         </q-item>
       </q-list>
     </q-layout-drawer>
@@ -63,7 +47,8 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
+
+import { mailComputed } from '../store/helper'
 
 export default {
   name: 'LayoutDefault',
@@ -72,11 +57,8 @@ export default {
       leftDrawerOpen: this.$q.platform.is.desktop
     }
   },
-  methods: {
-    openURL
-  },
-  created () {
-    console.log(this.$q)
+  computed: {
+    ...mailComputed
   }
 }
 </script>

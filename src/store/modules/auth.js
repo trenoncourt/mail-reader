@@ -14,10 +14,8 @@ export const getters = {}
 
 export const actions = {
   logIn ({commit}) {
-    console.log(Vue.$http)
-    Vue.$http.graph.auth.getToken()
+    return Vue.$http.graph.auth.getToken()
       .then(response => {
-        console.log(response.data.access_token)
         commit('SET_TOKEN', response.data.access_token)
       })
   },

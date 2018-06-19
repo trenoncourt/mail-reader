@@ -4,6 +4,8 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
+      'constants',
+      'http',
       'boot'
     ],
     css: [
@@ -31,7 +33,9 @@ module.exports = function (ctx) {
           loader: 'eslint-loader',
           exclude: /(node_modules|quasar)/
         })
-      }
+      },
+
+      env: ctx.dev
     },
     devServer: {
       // https: true,
@@ -54,7 +58,8 @@ module.exports = function (ctx) {
         'QListHeader',
         'QItem',
         'QItemMain',
-        'QItemSide'
+        'QItemSide',
+        'QItemTile'
       ],
       directives: [
         'Ripple'
