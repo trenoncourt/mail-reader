@@ -1,11 +1,11 @@
 <template>
   <q-page class="flex">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4" style="position: absolute;overflow-y: scroll; height: 100%;">
         <mail-list></mail-list>
       </div>
-      <div class="col">
-        <div class="q-ma-mdc" v-html="currentMailBody"></div>
+      <div class="col-8" style="position: absolute;overflow-y: scroll;height: 100%; right:0; width: 66.6667%;">
+        <div class="q-ma-md" v-html="currentMailBody"></div>
       </div>
     </div>
   </q-page>

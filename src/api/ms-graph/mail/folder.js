@@ -5,6 +5,6 @@ export default {
     return api.get(`users/${userId}/mailFolders?top=99`)
   },
   getMessages (userId, folderId) {
-    return api.get(`users/${userId}/mailFolders/${folderId}/messages?top=15&select=id,receivedDateTime,subject,bodyPreview`)
+    return api.get(`users/${userId}/mailFolders/${folderId}/messages?top=99&select=id,receivedDateTime,subject,bodyPreview`)
   }
 }

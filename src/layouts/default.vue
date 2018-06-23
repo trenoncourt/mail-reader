@@ -1,11 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-layout-header>
-      <q-toolbar
-        color="primary"
-        :glossy="$q.theme === 'mat'"
-        :inverted="$q.theme === 'ios'"
-      >
+      <q-toolbar color="primary">
         <q-btn
           flat
           dense
@@ -18,7 +14,7 @@
 
         <q-toolbar-title>
           Mail reader
-          <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
+          <div slot="subtitle">v{{ $constants.version }}</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-layout-header>

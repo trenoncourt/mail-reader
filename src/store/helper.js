@@ -4,7 +4,8 @@ export const mailComputed = {
   ...mapState('mail', {
     mails: state => state.mails,
     folders: state => state.folders,
-    currentMailBody: state => state.currentMailBody
+    currentMailBody: state => state.currentMailBody,
+    currentMailId: state => state.currentMailId
   })
 }
 
