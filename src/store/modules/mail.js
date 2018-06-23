@@ -3,7 +3,7 @@ import Vue from 'vue'
 export const state = {
   mails: [],
   folders: [],
-  currentEmail: '',
+  currentEmail: 'cbergem@access-it.fr',
   currentMailBody: '',
   currentMailId: null
 }
