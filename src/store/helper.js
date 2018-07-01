@@ -1,12 +1,15 @@
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export const mailComputed = {
   ...mapState('mail', {
     mails: state => state.mails,
     folders: state => state.folders,
-    currentMailBody: state => state.currentMailBody,
-    currentMailId: state => state.currentMailId
-  })
+    currentUser: state => state.currentUser,
+    currentMail: state => state.currentMail,
+    currentMailId: state => state.currentMailId,
+    currentMailAttachments: state => state.currentMailAttachments
+  }),
+  ...mapGetters('mail', ['from', 'to', 'cc', 'bcc'])
 }
 
-export const mailMethods = mapActions('mail', ['fetchMails', 'fetchFolders', 'fetchFolderMails', 'fetchMailBody'])
+export const mailMethods = mapActions('mail', ['fetchMails', 'fetchFolders', 'fetchFolderMails', 'fetchMail', 'resetMailBody', 'fetchMailAttachments', 'fetchMailAttachmentContent', 'downloadAttachment', 'updateCurrentUser', 'searchMails'])

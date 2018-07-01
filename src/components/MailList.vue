@@ -1,7 +1,7 @@
 <template>
   <q-list highlight inset-separator link>
     <mail-preview v-for="(mail, key) in mails" :key="key" :mail="mail"
-                  @click.native="fetchMailBody(mail.id)"
+                  @click.native="fetchMail(mail.id), fetchMailAttachments(mail.id)"
                   :class="{ 'bg-light': mail.id === currentMailId }"></mail-preview>
   </q-list>
 </template>

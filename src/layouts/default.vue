@@ -11,11 +11,25 @@
         >
           <q-icon name="menu"/>
         </q-btn>
+        <q-btn
+          v-if="currentMail"
+          flat
+          dense
+          round
+          @click="resetMailBody"
+          aria-label="arrow_left"
+        >
+          <q-icon name="arrow_left"/>
+        </q-btn>
 
-        <q-toolbar-title>
+        <q-toolbar-title @click.native="fetchMails">
           Mail reader
           <div slot="subtitle">v{{ $constants.version }}</div>
         </q-toolbar-title>
+
+        <q-btn flat round icon="search" @click="promptSearch"></q-btn>
+        <q-btn flat round icon="person" @click="promptUser"></q-btn>
+        <!--<q-input v-model="currentUser" inverted></q-input>-->
       </q-toolbar>
     </q-layout-header>
 
@@ -60,7 +74,35 @@ export default {
     ...mailComputed
   },
   methods: {
-    ...mailMethods
+    ...mailMethods,
+    promptUser () {
+      this.$q.dialog({
+        title: 'Utilisateur',
+        message: 'Choisir l\'utilisateur',
+        prompt: {
+          model: this.currentUser,
+          type: 'text'
+        },
+        cancel: true,
+        color: 'secondary'
+      }).then(data => {
+        this.updateCurrentUser(data)
+      })
+    },
+    promptSearch () {
+      this.$q.dialog({
+        title: 'Recherche',
+        message: 'Texte à rechercher',
+        prompt: {
+          model: '',
+          type: 'text'
+        },
+        cancel: true,
+        color: 'secondary'
+      }).then(data => {
+        this.searchMails(data)
+      })
+    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <q-item multiple>
     <q-item-main
-      :label="mail.subject"
+      :label="(mail.hasAttachments ? '☄' : '') + mail.subject"
       label-lines="1"
       :sublabel="mail.bodyPreview"
       sublabel-lines="2"

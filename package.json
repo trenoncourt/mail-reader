@@ -1,9 +1,9 @@
 {
   "name": "mail-reader",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Mail reader",
   "productName": "Quasar App",
-  "cordovaId": "org.cordova.mail-reader.app",
+  "cordovaId": "org.trenoncourt.graphmailreader.app",
   "author": "Thibaut Renoncourt <thibaut.renoncourt@gmail.com>",
   "private": true,
   "scripts": {
@@ -17,7 +17,8 @@
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
     "qs": "^6.5.2",
-    "vue-media": "^1.1.1"
+    "vue-media": "^1.1.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

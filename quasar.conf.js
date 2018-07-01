@@ -38,6 +38,13 @@ module.exports = function (ctx) {
       env: ctx.dev
     },
     devServer: {
+      proxy: {
+        '/access-it.fr/oauth2/token': {
+          target: 'http://localhost:5000',
+          secure: false,
+          logLevel: 'debug'
+        }
+      },
       // https: true,
       // port: 8080,
       open: true // opens browser window automatically
@@ -50,6 +57,7 @@ module.exports = function (ctx) {
         'QLayoutDrawer',
         'QPageContainer',
         'QPage',
+        'QInput',
         'QToolbar',
         'QToolbarTitle',
         'QBtn',
@@ -59,6 +67,9 @@ module.exports = function (ctx) {
         'QItem',
         'QItemMain',
         'QItemSide',
+        'QCard',
+        'QCardTitle',
+        'QCardActions',
         'QItemTile'
       ],
       directives: [
@@ -66,7 +77,8 @@ module.exports = function (ctx) {
       ],
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Dialog'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
