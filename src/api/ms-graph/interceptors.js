@@ -2,7 +2,6 @@ import store from '../../store/index'
 
 export default (http) => {
   http.interceptors.request.use(async config => {
-    console.log(store.state.auth.token)
     config.headers.common.Authorization = `Bearer ${store.state.auth.token}`
     return config
   })
