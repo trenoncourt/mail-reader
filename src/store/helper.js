@@ -13,3 +13,4 @@ export const mailComputed = {
 }
 
 export const mailMethods = mapActions('mail', ['fetchMails', 'fetchFolders', 'fetchFolderMails', 'fetchMail', 'resetMailBody', 'fetchMailAttachments', 'fetchMailAttachmentContent', 'downloadAttachment', 'updateCurrentUser', 'searchMails'])
+export const userMethods = mapActions('user', ['searchUsers'])

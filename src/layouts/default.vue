@@ -12,11 +12,11 @@
           <q-icon name="menu"/>
         </q-btn>
         <q-btn
-          v-if="currentMail"
+          v-if="$route.name !== 'index'"
           flat
           dense
           round
-          @click="resetMailBody"
+          @click="$router.back()"
           aria-label="arrow_left"
         >
           <q-icon name="arrow_left"/>
@@ -53,21 +53,43 @@
     <q-page-container>
       <router-view/>
     </q-page-container>
+
+    <dialog-search ref="modalUser" title="Utilisateur" subtitle="Utilisateur à rechercher" :default-text="currentUser"
+                   @search="search" @update="updateCurrentUser"></dialog-search>
+    <!--<q-modal ref="modal" minimized>-->
+    <!--<div class="modal-header">Utilisateur</div>-->
+    <!--<div class="modal-body modal-scroll modal-message">Utilisateur à rechercher</div>-->
+    <!--<div class="modal-body modal-scroll">-->
+    <!--<q-input :before="[{icon: 'search', handler () {}}]" v-model="userSearch" autofocus color="secondary">-->
+    <!--<q-autocomplete-->
+    <!--@search="search"-->
+    <!--:min-characters="3"-->
+    <!--/>-->
+    <!--</q-input>-->
+    <!--</div>-->
+    <!--<div class="modal-buttons row">-->
+    <!--<q-btn inline flat color="secondary" @click="$refs.modal.hide()">cancel</q-btn>-->
+    <!--<q-btn inline flat color="secondary" @click="updateCurrentUser(userSearch), $refs.modal.hide()">ok</q-btn>-->
+    <!--</div>-->
+    <!--</q-modal>-->
   </q-layout>
 </template>
 
 <script>
 
-import { mailComputed, mailMethods } from '../store/helper'
+import { mailComputed, mailMethods, userMethods } from '../store/helper'
+import DialogSearch from '../components/DialogSearch'
 
 export default {
   name: 'LayoutDefault',
+  components: {DialogSearch},
   created () {
     this.fetchFolders()
   },
   data () {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop
+      leftDrawerOpen: this.$q.platform.is.desktop,
+      userSearch: ''
     }
   },
   computed: {
@@ -75,19 +97,21 @@ export default {
   },
   methods: {
     ...mailMethods,
+    ...userMethods,
     promptUser () {
-      this.$q.dialog({
-        title: 'Utilisateur',
-        message: 'Choisir l\'utilisateur',
-        prompt: {
-          model: this.currentUser,
-          type: 'text'
-        },
-        cancel: true,
-        color: 'secondary'
-      }).then(data => {
-        this.updateCurrentUser(data)
-      })
+      this.$refs.modalUser.show()
+      // this.$q.dialog({
+      //   title: 'Utilisateur',
+      //   message: 'Choisir l\'utilisateur',
+      //   prompt: {
+      //     model: this.currentUser,
+      //     type: 'text'
+      //   },
+      //   cancel: true,
+      //   color: 'secondary'
+      // }).then(data => {
+      //   this.updateCurrentUser(data)
+      // })
     },
     promptSearch () {
       this.$q.dialog({
@@ -102,6 +126,12 @@ export default {
       }).then(data => {
         this.searchMails(data)
       })
+    },
+    async search (str, done) {
+      console.log(str)
+      console.log(done)
+      const users = await this.searchUsers(str)
+      done(users.map(u => ({value: u.userPrincipalName, label: u.userPrincipalName})))
     }
   }
 }

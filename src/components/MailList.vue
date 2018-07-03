@@ -1,7 +1,7 @@
 <template>
   <q-list highlight inset-separator link>
     <mail-preview v-for="(mail, key) in mails" :key="key" :mail="mail"
-                  @click.native="fetchMail(mail.id), fetchMailAttachments(mail.id)"
+                  @click.native="fetchMail(mail.id), fetchMailAttachments(mail.id), navigate()"
                   :class="{ 'bg-light': mail.id === currentMailId }"></mail-preview>
   </q-list>
 </template>
@@ -16,7 +16,12 @@ export default {
     ...mailComputed
   },
   methods: {
-    ...mailMethods
+    ...mailMethods,
+    navigate () {
+      if (window.innerWidth < 600) {
+        this.$router.push({name: 'mail'})
+      }
+    }
   }
 }
 </script>

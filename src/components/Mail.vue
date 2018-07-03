@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-12">From: {{from}}</div>
     <div class="col-12">To: {{to}}</div>
-    <div class="col-12">Cc: {{cc}}</div>
-    <div class="col-12">Bcc: {{bcc}}</div>
+    <div class="col-12" v-if="cc">Cc: {{cc}}</div>
+    <div class="col-12" v-if="bcc">Bcc: {{bcc}}</div>
     <div class="col-3 gutter-sm" v-for="(ma, key) in currentMailAttachments" :key="key">
       <q-card class="q-ma-md">
         <q-card-title>

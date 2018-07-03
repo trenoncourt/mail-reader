@@ -132,6 +132,7 @@ export const actions = {
   updateCurrentUser ({commit, dispatch}, user) {
     commit('SET_CURRENT_USER', user)
     commit('SET_CURRENT_MAIL', '')
+    commit('SET_MAILS', [])
     dispatch('fetchFolders')
   },
   searchMails ({commit, state}, search) {

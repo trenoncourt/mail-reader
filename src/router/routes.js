@@ -1,10 +1,10 @@
-
 export default [
   {
     path: '/',
     component: () => import('layouts/default'),
     children: [
-      { path: '', component: () => import('pages/index') }
+      {path: '', name: 'index', component: () => import('pages/index')},
+      {path: '/mail', name: 'mail', component: () => import('pages/MailPreview')}
     ]
   },
 

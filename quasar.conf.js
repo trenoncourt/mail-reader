@@ -36,6 +36,22 @@ module.exports = function (ctx) {
       },
 
       env: ctx.dev
+        ? {
+          version: JSON.stringify(require('./package.json').version),
+          aad: {
+            tenant: JSON.stringify('access-it.fr'),
+            clientId: JSON.stringify('ae75800b-9d7d-4835-955f-f4d439ffcaea'),
+            clientSecret: JSON.stringify('6YmZmfsnMFfckuhTyA/8ynRodGxYNjDSRKPUt4ik3H4=')
+          }
+        }
+        : {
+          version: JSON.stringify(require('./package.json').version),
+          aad: {
+            tenant: JSON.stringify('access-it.fr'),
+            clientId: JSON.stringify('ae75800b-9d7d-4835-955f-f4d439ffcaea'),
+            clientSecret: JSON.stringify('6YmZmfsnMFfckuhTyA/8ynRodGxYNjDSRKPUt4ik3H4=')
+          }
+        }
     },
     devServer: {
       proxy: {
@@ -70,6 +86,8 @@ module.exports = function (ctx) {
         'QCard',
         'QCardTitle',
         'QCardActions',
+        'QModal',
+        'QAutocomplete',
         'QItemTile'
       ],
       directives: [
