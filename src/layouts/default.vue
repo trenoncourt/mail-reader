@@ -29,7 +29,6 @@
 
         <q-btn flat round icon="search" @click="promptSearch"></q-btn>
         <q-btn flat round icon="person" @click="promptUser"></q-btn>
-        <!--<q-input v-model="currentUser" inverted></q-input>-->
       </q-toolbar>
     </q-layout-header>
 
@@ -56,22 +55,6 @@
 
     <dialog-search ref="modalUser" title="Utilisateur" subtitle="Utilisateur à rechercher" :default-text="currentUser"
                    @search="search" @update="updateCurrentUser"></dialog-search>
-    <!--<q-modal ref="modal" minimized>-->
-    <!--<div class="modal-header">Utilisateur</div>-->
-    <!--<div class="modal-body modal-scroll modal-message">Utilisateur à rechercher</div>-->
-    <!--<div class="modal-body modal-scroll">-->
-    <!--<q-input :before="[{icon: 'search', handler () {}}]" v-model="userSearch" autofocus color="secondary">-->
-    <!--<q-autocomplete-->
-    <!--@search="search"-->
-    <!--:min-characters="3"-->
-    <!--/>-->
-    <!--</q-input>-->
-    <!--</div>-->
-    <!--<div class="modal-buttons row">-->
-    <!--<q-btn inline flat color="secondary" @click="$refs.modal.hide()">cancel</q-btn>-->
-    <!--<q-btn inline flat color="secondary" @click="updateCurrentUser(userSearch), $refs.modal.hide()">ok</q-btn>-->
-    <!--</div>-->
-    <!--</q-modal>-->
   </q-layout>
 </template>
 
@@ -123,15 +106,17 @@ export default {
         },
         cancel: true,
         color: 'secondary'
-      }).then(data => {
-        this.searchMails(data)
+      }).then(async data => {
+        this.$q.loading.show()
+        await this.searchMails(data)
+        this.$q.loading.hide()
       })
     },
     async search (str, done) {
-      console.log(str)
-      console.log(done)
+      this.$q.loading.show()
       const users = await this.searchUsers(str)
       done(users.map(u => ({value: u.userPrincipalName, label: u.userPrincipalName})))
+      this.$q.loading.hide()
     }
   }
 }

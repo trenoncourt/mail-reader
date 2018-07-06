@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import fileService from '../../services/fileService'
+import { Loading } from 'quasar'
 
 export const state = {
   mails: [],
@@ -84,6 +85,7 @@ export const actions = {
       })
   },
   fetchFolderMails ({commit, state}, folderId) {
+    Loading.show()
     return Vue.$http.graph.mail.folder.getMessages(state.currentUser, folderId)
       .then(response => {
         const mails = response.data.value.map(m => {
@@ -96,14 +98,17 @@ export const actions = {
           }
         })
         commit('SET_MAILS', mails)
+        Loading.hide()
         return mails
       })
   },
   fetchMail ({commit, state}, mailId) {
+    Loading.show()
     commit('SET_CURRENT_MAIL_ID', mailId)
     return Vue.$http.graph.mail.message.findById(state.currentUser, mailId)
       .then(response => {
         commit('SET_CURRENT_MAIL', response.data)
+        Loading.hide()
         return response.data.value
       })
   },
