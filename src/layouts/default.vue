@@ -27,6 +27,7 @@
           <div slot="subtitle">v{{ $constants.version }}</div>
         </q-toolbar-title>
 
+        <q-btn flat round icon="search" @click="promptIm"></q-btn>
         <q-btn flat round icon="search" @click="promptSearch"></q-btn>
         <q-btn flat round icon="person" @click="promptUser"></q-btn>
       </q-toolbar>
@@ -55,6 +56,8 @@
 
     <dialog-search ref="modalUser" title="Utilisateur" subtitle="Utilisateur à rechercher" :default-text="currentUser"
                    @search="search" @update="updateCurrentUser"></dialog-search>
+    <dialog-im ref="modalIm" title="IM" subtitle="IM à rechercher"
+                   @search="search" @imSearch="imSearch" ></dialog-im>
   </q-layout>
 </template>
 
@@ -62,10 +65,11 @@
 
 import { mailComputed, mailMethods, userMethods } from '../store/helper'
 import DialogSearch from '../components/DialogSearch'
+import DialogIm from '../components/DialogIm'
 
 export default {
   name: 'LayoutDefault',
-  components: {DialogSearch},
+  components: {DialogSearch, DialogIm},
   created () {
     this.fetchFolders()
   },
@@ -83,18 +87,9 @@ export default {
     ...userMethods,
     promptUser () {
       this.$refs.modalUser.show()
-      // this.$q.dialog({
-      //   title: 'Utilisateur',
-      //   message: 'Choisir l\'utilisateur',
-      //   prompt: {
-      //     model: this.currentUser,
-      //     type: 'text'
-      //   },
-      //   cancel: true,
-      //   color: 'secondary'
-      // }).then(data => {
-      //   this.updateCurrentUser(data)
-      // })
+    },
+    promptIm () {
+      this.$refs.modalIm.show()
     },
     promptSearch () {
       this.$q.dialog({
@@ -111,6 +106,9 @@ export default {
         await this.searchMails(data)
         this.$q.loading.hide()
       })
+    },
+    async imSearch ({sender, to}) {
+      await this.fetchIms({sender, to})
     },
     async search (str, done) {
       this.$q.loading.show()

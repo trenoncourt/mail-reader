@@ -12,5 +12,5 @@ export const mailComputed = {
   ...mapGetters('mail', ['from', 'to', 'cc', 'bcc'])
 }
 
-export const mailMethods = mapActions('mail', ['fetchMails', 'fetchFolders', 'fetchFolderMails', 'fetchMail', 'resetMailBody', 'fetchMailAttachments', 'fetchMailAttachmentContent', 'downloadAttachment', 'updateCurrentUser', 'searchMails'])
+export const mailMethods = mapActions('mail', ['fetchMails', 'fetchIms', 'fetchFolders', 'fetchFolderMails', 'fetchMail', 'resetMailBody', 'fetchMailAttachments', 'fetchMailAttachmentContent', 'downloadAttachment', 'updateCurrentUser', 'searchMails'])
 export const userMethods = mapActions('user', ['searchUsers'])

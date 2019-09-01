@@ -1,10 +1,15 @@
 <template>
-  <q-modal ref="dialogSearchModal" minimized>
+  <q-modal ref="dialogImModal" minimized>
     <div class="modal-header">{{title}}</div>
     <div class="modal-body modal-scroll modal-message" v-if="subtitle">{{subtitle}}</div>
     <div class="modal-body modal-scroll">
-      <q-input :before="[{icon: 'search', handler () {}}]" v-model="searchText" autofocus color="secondary"
-               @keyup.enter.native="$emit('update', searchText), $refs.dialogSearchModal.hide()">
+      <q-input float-label="sender" :before="[{icon: 'search', handler () {}}]" v-model="sender" autofocus color="secondary">
+        <q-autocomplete
+          @search="search"
+          :min-characters="3"
+        />
+      </q-input>
+      <q-input float-label="to" :before="[{icon: 'search', handler () {}}]" v-model="to" autofocus color="secondary">
         <q-autocomplete
           @search="search"
           :min-characters="3"
@@ -12,8 +17,8 @@
       </q-input>
     </div>
     <div class="modal-buttons row">
-      <q-btn inline flat color="secondary" @click="$refs.dialogSearchModal.hide()">cancel</q-btn>
-      <q-btn inline flat color="secondary" @click="$emit('update', searchText), $refs.dialogSearchModal.hide()">ok
+      <q-btn inline flat color="secondary" @click="$refs.dialogImModal.hide()">cancel</q-btn>
+      <q-btn inline flat color="secondary" @click="$emit('imSearch', {sender, to}), $refs.dialogImModal.hide()">ok
       </q-btn>
     </div>
   </q-modal>
@@ -26,25 +31,21 @@ export default {
     subtitle: {
       type: String,
       default: ''
-    },
-    defaultText: {
-      type: String,
-      default: ''
     }
   },
   data: () => ({
-    searchText: ''
+    sender: '',
+    to: ''
   }),
   methods: {
     show () {
-      this.$refs.dialogSearchModal.show()
+      this.$refs.dialogImModal.show()
     },
     search (str, done) {
       this.$emit('search', str, done)
     }
   },
   created () {
-    this.searchText = this.defaultText
   }
 }
 </script>

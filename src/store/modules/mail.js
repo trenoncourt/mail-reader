@@ -76,6 +76,31 @@ export const actions = {
         return mails
       })
   },
+  async fetchIms ({commit, state}, {sender, to}) {
+    const imFolderResponse = await Vue.$http.graph.mail.message.getImFolder(state.currentUser)
+    console.log(imFolderResponse)
+    const imFolderValue = imFolderResponse.data.value[0].parentFolderId
+    return Vue.$http.graph.mail.folder.getImMessages(state.currentUser, imFolderValue, sender, to)
+      .then(response => {
+        let mails = response.data.value
+        if (sender && to) {
+          mails = mails.filter(m => m.toRecipients[0].emailAddress.address === sender || m.toRecipients[0].emailAddress.address === to || m.toRecipients[0].emailAddress.address === sender.split('@')[0] + '@ACCESSIT1.onmicrosoft.com' || m.toRecipients[0].emailAddress.address === to.split('@')[0] + '@ACCESSIT1.onmicrosoft.com')
+        }
+        mails = mails.map(m => {
+          return {
+            id: m.id,
+            subject: m.subject,
+            bodyPreview: m.bodyPreview,
+            receivedDate: m.receivedDateTime,
+            hasAttachments: m.hasAttachments,
+            sender: m.sender,
+            toRecipients: m.toRecipients
+          }
+        })
+        commit('SET_MAILS', mails)
+        return mails
+      })
+  },
   fetchFolders ({commit, state}) {
     return Vue.$http.graph.mail.folder.get(state.currentUser)
       .then(response => {
